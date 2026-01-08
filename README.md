@@ -1,1 +1,468 @@
-# CHECKLIST-SB
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist สรุปงาน Zelection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Sarabun', sans-serif;
+        }
+        
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .no-print { 
+                display: none !important;
+            }
+            
+            .print-container {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+            }
+            
+            input[type="text"],
+            input[type="date"],
+            input[type="number"],
+            textarea {
+                border-bottom: 1px solid #000 !important;
+                background: transparent !important;
+                color: #000 !important;
+            }
+            
+            input[type="checkbox"],
+            input[type="radio"] {
+                -webkit-appearance: auto;
+                appearance: auto;
+                border: 1px solid #000 !important;
+            }
+            
+            ::placeholder {
+                color: transparent;
+            }
+            
+            .section-header {
+                background-color: #1e40af !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .bg-yellow-50 {
+                background-color: #fefce8 !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .bg-red-50 {
+                background-color: #fef2f2 !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .bg-gray-50 {
+                background-color: #f9fafb !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        
+        .checkbox-wrapper { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .checkbox-wrapper:hover {
+            background-color: #f3f4f6;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        
+        .section-header { 
+            background-color: #1e40af; 
+            color: white; 
+            padding: 0.75rem; 
+            margin-top: 1.5rem; 
+            margin-bottom: 1rem; 
+            border-radius: 0.375rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea {
+            transition: all 0.2s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
+        
+        .signature-box {
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-xl rounded-lg print-container">
+        
+        <div class="text-center mb-8 border-b-4 border-blue-700 pb-6">
+            <h1 class="text-3xl font-bold text-blue-900 mb-2">📋 Checklist ทบทวนรายการสั่งซื้อ</h1>
+            <h2 class="text-xl font-semibold text-blue-800">& สรุปแบบงาน Zelection</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 bg-blue-50 p-4 rounded-lg">
+            <div>
+                <label class="font-bold text-gray-700 block mb-1">ชื่อลูกค้า:</label>
+                <input type="text" class="w-full border-b-2 border-gray-400 focus:outline-none focus:border-blue-600 px-2 py-1 bg-transparent" placeholder="ระบุชื่อลูกค้า">
+            </div>
+            <div>
+                <label class="font-bold text-gray-700 block mb-1">วันที่:</label>
+                <input type="date" class="w-full border-b-2 border-gray-400 focus:outline-none focus:border-blue-600 px-2 py-1 bg-transparent">
+            </div>
+        </div>
+
+        <form id="checklistForm">
+
+            <h2 class="section-header">1. ข้อมูลโครงการ (Project Information)</h2>
+            <div class="pl-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                    <label class="checkbox-wrapper">
+                        <input type="radio" name="project_type" value="build" class="w-4 h-4"> 
+                        <span>บ้านสร้างเอง</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="radio" name="project_type" value="project" class="w-4 h-4"> 
+                        <span>บ้านโครงการ</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="radio" name="project_type" value="condo" class="w-4 h-4"> 
+                        <span>คอนโด</span>
+                    </label>
+                </div>
+                <div class="mt-3">
+                    <label class="font-semibold text-gray-700">อื่นๆ:</label>
+                    <input type="text" class="w-full border-b border-gray-400 mt-1 px-2 py-1" placeholder="ระบุรายละเอียดเพิ่มเติม">
+                </div>
+                <div class="mt-3 text-sm text-red-700 bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+                    <strong>⚠️ หมายเหตุ:</strong> กรณีคอนโดหรือหมู่บ้านที่ต้องขออนุญาต ลูกค้าเป็นผู้ดำเนินการแจ้งนิติบุคคลด้วยตนเอง
+                </div>
+            </div>
+
+            <h2 class="section-header">2. ขอบเขตงานที่สั่งซื้อ (Scope of Work)</h2>
+            <div class="pl-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span>Furniture Built-in</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span>Loose Furniture (ลอยตัว)</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span>งานผนัง / ฝ้า / พื้น (ทีม INS)</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span>งานตกแต่ง Interior (ทีม INS)</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span>ลูกค้าทำงานระบบเอง</span>
+                    </label>
+                </div>
+                <div class="mt-4 bg-gray-50 p-3 rounded">
+                    <label class="font-semibold text-gray-700 block mb-2">งานระบบ (ทีม INS):</label>
+                    <div class="flex gap-6 pl-4">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" class="w-4 h-4"> 
+                            <span>ไฟฟ้า</span>
+                        </label>
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" class="w-4 h-4"> 
+                            <span>ประปา</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label class="font-semibold text-gray-700">งานอื่นๆ:</label>
+                    <input type="text" class="w-full border-b border-gray-400 mt-1 px-2 py-1" placeholder="ระบุงานอื่นๆ ที่เพิ่มเติม">
+                </div>
+            </div>
+
+            <h2 class="section-header">3. สถานะพื้นที่หน้างานปัจจุบัน</h2>
+            <div class="pl-4 space-y-2">
+                <label class="checkbox-wrapper">
+                    <input type="radio" name="site_status" value="100" class="w-4 h-4"> 
+                    <span>พื้นที่พร้อมติดตั้ง 100% (พื้น/ผนัง/ฝ้า เรียบร้อย)</span>
+                </label>
+                <label class="checkbox-wrapper">
+                    <input type="radio" name="site_status" value="80" class="w-4 h-4"> 
+                    <span>พื้นที่ 80% (รอเก็บ Defect/รายละเอียด)</span>
+                </label>
+                <label class="checkbox-wrapper">
+                    <input type="radio" name="site_status" value="70" class="w-4 h-4"> 
+                    <span>พื้นที่ 70% (ยังไม่มีงานระบบ ไฟฟ้า/ประปา)</span>
+                </label>
+                <label class="checkbox-wrapper">
+                    <input type="radio" name="site_status" value="50" class="w-4 h-4"> 
+                    <span>พื้นที่ 50% (โครงสร้างยังไม่เรียบร้อย)</span>
+                </label>
+                <label class="checkbox-wrapper">
+                    <input type="radio" name="site_status" value="renovate" class="w-4 h-4"> 
+                    <span>พื้นที่เดิม Renovate (พร้อมติดตั้ง 100%)</span>
+                </label>
+                <div class="mt-3 text-sm text-red-700 bg-red-50 p-2 rounded border-l-4 border-red-500">
+                    <strong>⚠️ หมายเหตุ:</strong> หากมีสิ่งของอยู่หน้างาน ต้องย้ายออกก่อนติดตั้ง 5-7 วัน
+                </div>
+            </div>
+
+            <h2 class="section-header">4. วัสดุ (Material Confirmation)</h2>
+            <div class="pl-4">
+                <p class="font-bold mb-2 text-gray-700">ประเภทไม้โครงสร้าง:</p>
+                <div class="flex flex-col md:flex-row gap-4 mb-4">
+                    <label class="checkbox-wrapper">
+                        <input type="radio" name="wood_type" value="mdf" class="w-4 h-4"> 
+                        <span>MDF + PB (สีน้ำตาล)</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="radio" name="wood_type" value="hmr" class="w-4 h-4"> 
+                        <span>HMR (เขียว) + PB</span>
+                    </label>
+                </div>
+                
+                <p class="font-bold mb-2 text-gray-700">วัสดุปิดผิว / ลายไม้:</p>
+                <textarea class="w-full border-2 border-gray-300 p-3 rounded-lg focus:border-blue-600 focus:outline-none" rows="3" placeholder="ระบุรหัสวัสดุ, ชื่อสี, ลายไม้ และรายละเอียดที่สำคัญ..."></textarea>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" class="w-4 h-4"> 
+                            <span class="font-semibold">แนวตั้ง</span>
+                        </label>
+                        <input type="text" class="w-full border-b border-gray-400 ml-6 mt-1 px-2 py-1" placeholder="ระบุส่วนที่ใช้แนวตั้ง">
+                    </div>
+                    <div>
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" class="w-4 h-4"> 
+                            <span class="font-semibold">แนวนอน</span>
+                        </label>
+                        <input type="text" class="w-full border-b border-gray-400 ml-6 mt-1 px-2 py-1" placeholder="ระบุส่วนที่ใช้แนวนอน">
+                    </div>
+                </div>
+                
+                <div class="mt-5 bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300">
+                    <p class="font-bold text-yellow-900 mb-3">✓ การยืนยันสำคัญ:</p>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-5 h-5"> 
+                        <span class="font-semibold">ลูกค้าได้เห็น Sample วัสดุจริงแล้ว</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-5 h-5"> 
+                        <span class="font-semibold">ลูกค้าเข้าใจความแตกต่าง "ภาพ 3D vs ของจริง" (มีรอยต่อ/สีอาจต่าง +/- 10%)</span>
+                    </label>
+                </div>
+            </div>
+
+            <h2 class="section-header">5. งานไฟ & ระบบ (ถ้ามี)</h2>
+            <div class="pl-4">
+                <div class="mb-4">
+                    <span class="font-bold text-gray-700 block mb-2">แสงไฟ:</span>
+                    <div class="flex flex-wrap gap-4 pl-4">
+                        <label class="checkbox-wrapper">
+                            <input type="radio" name="light" value="warm" class="w-4 h-4"> 
+                            <span>Warm White (แสงวอร์ม)</span>
+                        </label>
+                        <label class="checkbox-wrapper">
+                            <input type="radio" name="light" value="cool" class="w-4 h-4"> 
+                            <span>Cool White (แสงเย็น)</span>
+                        </label>
+                        <label class="checkbox-wrapper">
+                            <input type="radio" name="light" value="day" class="w-4 h-4"> 
+                            <span>Daylight (แสงกลางวัน)</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-bold text-gray-700 block mb-2">ผู้รับผิดชอบงานระบบ:</span>
+                    <div class="flex flex-wrap gap-4 pl-4">
+                        <label class="checkbox-wrapper">
+                            <input type="radio" name="system_owner" value="zelection" class="w-4 h-4"> 
+                            <span>Zelection</span>
+                        </label>
+                        <label class="checkbox-wrapper">
+                            <input type="radio" name="system_owner" value="ins" class="w-4 h-4"> 
+                            <span>INS</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-header">6. เงื่อนไขราคา</h2>
+            <div class="pl-4">
+                <div class="mb-3">
+                    <span class="font-bold text-gray-700 block mb-2">ครอบคลุมงานทั้งหมดหรือไม่:</span>
+                    <div class="flex gap-6 pl-4">
+                        <label class="checkbox-wrapper">
+                            <input type="radio" name="price_cover" value="yes" class="w-4 h-4"> 
+                            <span>ใช่ ครอบคลุมทั้งหมด</span>
+                        </label>
+                        <label class="checkbox-wrapper">
+                            <input type="radio" name="price_cover" value="no" class="w-4 h-4"> 
+                            <span>ไม่ใช่ มีงานเพิ่มเติม</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="space-y-2 bg-gray-50 p-3 rounded">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span>งานเพิ่ม = ค่าใช้จ่ายเพิ่ม (ต้องอนุมัติก่อนทำ)</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span>เปลี่ยนวัสดุหลังอนุมัติ อาจกระทบเวลาและราคา</span>
+                    </label>
+                </div>
+                <div class="mt-3">
+                    <label class="font-semibold text-gray-700 block mb-1">รายละเอียดงานเพิ่มเติม:</label>
+                    <input type="text" class="w-full border-b-2 border-gray-400 px-2 py-1" placeholder="ระบุรายละเอียด...">
+                </div>
+            </div>
+
+            <h2 class="section-header">7. ระยะเวลา & การเข้าหน้างาน</h2>
+            <div class="pl-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label class="font-bold text-gray-700 block mb-2">ระยะเวลาผลิต-ติดตั้ง:</label>
+                        <div class="flex items-center gap-2">
+                            <input type="number" class="w-24 border-2 border-gray-400 rounded px-3 py-2 text-center focus:border-blue-600 focus:outline-none" placeholder="0" min="0">
+                            <span class="font-semibold">วัน</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="font-bold text-gray-700 block mb-2">วันที่คาดว่าจะเข้าติดตั้ง:</label>
+                        <input type="date" class="w-full border-2 border-gray-400 rounded px-3 py-2 focus:border-blue-600 focus:outline-none">
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2 bg-blue-50 p-3 rounded">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span class="font-semibold">ลูกค้ายืนยันว่าพื้นที่จะพร้อมตามกำหนด</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-4 h-4"> 
+                        <span class="font-semibold">ยืนยันว่างานไม่ชนกับช่างอื่น</span>
+                    </label>
+                </div>
+            </div>
+
+            <h2 class="section-header">8. ความเข้าใจตรงกัน (Critical Alignment)</h2>
+            <div class="pl-4">
+                <div class="bg-amber-50 p-4 rounded-lg border-2 border-amber-300">
+                    <p class="font-bold text-amber-900 mb-3">⚠️ ข้อตกลงสำคัญ (ต้องยืนยัน):</p>
+                    <label class="checkbox-wrapper mb-3">
+                        <input type="checkbox" class="w-5 h-5"> 
+                        <span class="font-semibold">ลูกค้าเข้าใจว่างานไม้มีรอยต่อ / ลายไม้ไม่ต่อกัน 100%</span>
+                    </label>
+                    <label class="checkbox-wrapper mb-3">
+                        <input type="checkbox" class="w-5 h-5"> 
+                        <span class="font-semibold">สีจริงอาจแตกต่างจากจอภาพ +/- 10%</span>
+                    </label>
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" class="w-5 h-5"> 
+                        <span class="font-semibold">รับงานตามแบบและสเปกที่สรุปในเอกสารนี้เท่านั้น</span>
+                    </label>
+                </div>
+            </div>
+
+            <h2 class="section-header">9. การอนุมัติ (Final Approval)</h2>
+            <div class="pl-4">
+                <p class="mb-6 text-gray-700 bg-blue-50 p-3 rounded">
+                    <strong>คำยืนยัน:</strong> ข้าพเจ้ายืนยันว่าได้ตรวจสอบรายการทั้งหมดในเอกสารนี้แล้ว 
+                    และยินยอมให้ดำเนินงานตามรายละเอียดที่ระบุไว้
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="border-2 border-gray-300 p-4 rounded-lg text-center signature-box">
+                        <div>
+                            <input type="text" class="w-full border-b-2 border-gray-400 text-center mb-2 px-2 py-1 font-semibold" placeholder="ลงชื่อลูกค้า">
+                            <p class="text-sm text-gray-600 mt-3">(ชื่อลูกค้า / Customer)</p>
+                        </div>
+                        <input type="date" class="mt-4 border-2 border-gray-300 rounded px-2 py-1">
+                    </div>
+                    <div class="border-2 border-gray-300 p-4 rounded-lg text-center signature-box">
+                        <div>
+                            <input type="text" class="w-full border-b-2 border-gray-400 text-center mb-2 px-2 py-1 font-semibold" placeholder="ลงชื่อผู้ออกแบบ">
+                            <p class="text-sm text-gray-600 mt-3">(ผู้ออกแบบ/ผู้ดูแลการขาย)</p>
+                        </div>
+                        <input type="date" class="mt-4 border-2 border-gray-300 rounded px-2 py-1">
+                    </div>
+                </div>
+                
+                <div class="border-2 border-blue-300 bg-blue-50 p-4 rounded-lg text-center md:w-2/3 md:mx-auto signature-box">
+                    <div>
+                        <input type="text" class="w-full border-b-2 border-blue-500 text-center mb-2 px-2 py-1 font-semibold bg-transparent" placeholder="ลงชื่อ Manager">
+                        <p class="text-sm text-gray-600 mt-3 font-semibold">(Manager อนุมัติ)</p>
+                    </div>
+                    <input type="date" class="mt-4 border-2 border-gray-300 rounded px-2 py-1 bg-white">
+                </div>
+            </div>
+
+        </form>
+
+        <div class="mt-10 pt-6 border-t-2 border-gray-300 text-center no-print">
+            <button onclick="window.print()" class="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-10 py-4 rounded-full hover:from-blue-700 hover:to-blue-900 font-bold shadow-xl transition transform hover:scale-105 text-lg">
+                🖨️ บันทึกเป็น PDF / พิมพ์เอกสาร
+            </button>
+            <p class="mt-4 text-gray-600 text-sm bg-gray-100 inline-block px-6 py-2 rounded-full">
+                💡 <strong>คำแนะนำ:</strong> เมื่อกดปุ่ม ให้เลือก "Save as PDF" หรือ "บันทึกเป็น PDF" ในหน้าต่างการพิมพ์
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // Auto-fill today's date
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const dateInputs = document.querySelectorAll('input[type="date"]');
+            if(dateInputs.length > 0 && !dateInputs[0].value) {
+                dateInputs[0].value = today;
+            }
+        });
+    </script>
+
+</body>
+</html>
